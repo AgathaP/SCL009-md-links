@@ -40,22 +40,25 @@ contenido en forma de buffer o en forma de cadena.*/
 
 const FileHound = require('filehound');
 
-const userPath = (path) => {
     const files = FileHound.create()
-            .paths(path)
+            .paths('\\Users\\Asus\\Desktop\\SCL009-md-links')
             .ext('.md')
             .find()
-            files.then(files => {
-            files.forEach(file => console.log('pruebas', files));
+            // files.then(files => {
+            // files.forEach(file => console.log('pruebas', files))
+            // })
+            files.then(console.log);
+            files.catch ((err) => {
+                console.log('Por favor ingrese una ruta valida');
+                
         })  
-        .catch ((err) => {
-            console.log('Por favor ingrese una ruta valida');
-        })
-        files.then(console.log);
-}
 
 // let path = '\\Users\\Asus\\Desktop\\SCL009-md-links';
 
+// ver el forEach
 
- 
+// // Por medio de un callback
 
+// const userFile = (request, response) => {
+//     FileHound.create(path, ext)
+    // }
