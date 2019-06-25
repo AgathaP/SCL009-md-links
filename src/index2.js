@@ -79,7 +79,7 @@ console.log('yayaya')
         //     } else {
         //         console.log('es una ruta absoluta')
         //     }
-    marked(data, {renderer:renderer})
+    // marked(data, {renderer:renderer})
     // resolve(arr);
     // console.log(read);
    
