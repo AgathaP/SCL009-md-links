@@ -32,7 +32,7 @@ _Donde "path" es la ruta donde se encuentra el archivo a analizar._
 Se imprimirá en la terminal, las carpetas encontradas en la ruta, los links contenidos dentro del o los archivos .md y el estado de los links.
 <br>
 ### imprimiendo carpetas
-![imprimiendo-carpetas](C:\Users\Asus\Desktop\SCL009-md-links\src\img\imprimiendo-carpetas.png)
+![imprimiendo-carpetas](src\img\imprimiendo-carpetas.png)
 <br>
 ### imprimiendo links contenidos en archivos
 ![links-encontrados](img\links-encontrados.png)
@@ -41,12 +41,12 @@ Se imprimirá en la terminal, las carpetas encontradas en la ruta, los links con
 ![links-validados](img\links-validados.png)
 
 ## Dependencias 📋
-* eslint-plugin-jest": "^22.7.1
-* filehound": "^1.17.0
-* link-check": "^4.4.5
-* marked": "^0.6.2
-* node-bin": "^8.10.0
-* node-fetch": "^2.6.0
+* eslint-plugin-jest: ^22.7.1
+* filehound: ^1.17.0
+* link-check: ^4.4.5
+* marked: ^0.6.2
+* node-bin: ^8.10.0
+* node-fetch: ^2.6.0
 
 ## Autora ✒️
 * **Agatha Sáez**
