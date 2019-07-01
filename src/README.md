@@ -32,13 +32,13 @@ _Donde "path" es la ruta donde se encuentra el archivo a analizar._
 Se imprimirá en la terminal, las carpetas encontradas en la ruta, los links contenidos dentro del o los archivos .md y el estado de los links.
 <br>
 ### imprimiendo carpetas
-![imprimiendo-carpetas](src\img\imprimiendo-carpetas.png)
+![imprimiendo-carpetas](img/imprimiendo-carpetas.png)
 <br>
 ### imprimiendo links contenidos en archivos
-![links-encontrados](img\links-encontrados.png)
+![links-encontrados](img/links-encontrados.png)
 <br>
 ### imprimiendo estado de los links encontrados
-![links-validados](img\links-validados.png)
+![links-validados](img/links-validados.png)
 
 ## Dependencias 📋
 * eslint-plugin-jest: ^22.7.1
