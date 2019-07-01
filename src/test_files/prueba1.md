@@ -1,4 +1,5 @@
 # Esta es una prueba
+#### Estracto de varios README.md diferentes encontrados en Github.
 
 ![how to npm](https://github.com/workshopper/how-to-npm)
 
@@ -9,8 +10,6 @@ Como primer paso para llevar a cabo el proyecto, hicimos una planificación en [
 ![Pet Lover Primer Prototipo](src/assets/img/primera-iteracion-pet-lovers-figma.png)
 
 para ver más pincha [aquí](https://www.figma.com/file/CrHIpiLofz8slH9KTTDAXC3B/Red-Social).
-
-![link que mandó la Fabi Orellana](https://medium.com/@maniakhitoccori/cómo-crear-una-aplicación-real-de-node-cli-con-node-db1338fa1d9b)
 
 ![Pet Lover version final](src/assets/img/print_login_screen.png)
 ![Pet_Lover_Logo](src/assets/img/petlogo.png)
