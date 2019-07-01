@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-// const Cucumber = require('../lib/cucumber');
 // Módulos utilizados en proyecto.
 const file = process.argv[2];
 const fileHound = require('filehound');
@@ -97,8 +96,6 @@ const searchingLinks = (path) => {
 // } else if (option == '--status' || option == '--s'){
 //     return stats = true;
 // }
-
-// const mdLinks = (path, option)
 
 module.exports = {
   readPath,
