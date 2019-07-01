@@ -2,7 +2,7 @@
 // const Cucumber = require('../lib/cucumber');
 // Módulos utilizados en proyecto.
 const file = process.argv[2];
-const FileHound = require('filehound');
+const fileHound = require('filehound');
 const path = require('path');
 const marked = require('marked')
 const fs = require('fs');
@@ -12,7 +12,7 @@ const linkCheck = require('link-check');
 
 // Imprime en terminal los archivos que concuerden con la extención del formato markdown ".md".
 const readPath = (path) => {
-const files = FileHound.create()
+const files = fileHound.create()
   .paths(file)
   .ext('.md')
   .find();
@@ -29,20 +29,10 @@ files.then(res => {console.log('Files: ', res)
 
     console.log(readPath());
 
-
-    // Debe comprobar que la ruta sea absoluta (los metodos están arrojando error)
-    // const absoluteConvert = (path) =>{
         route = file;
-    //     if (route.isAbsolute == true){
-    //         readPath();
-    //     } else {
             route = path.resolve(route)
             route = path.normalize(route)
-          //  absoluteConvert();
-    //     }
-    //     }
 
-    //     console.log(absoluteConvert())
 
 // Lee los archivos y extrae links con su información adicional, titulo que lo acompaña y su hubicación.
 const searchingLinks = (path) => {
