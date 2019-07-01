@@ -41,12 +41,14 @@ Se imprimirá en la terminal, las carpetas encontradas en la ruta, los links con
 ![links-validados](img/links-validados.png)
 
 ## Dependencias 📋
-* eslint-plugin-jest: ^22.7.1
+* deploy: ^1.0.3
+* eslint: ^6.0.1
 * filehound: ^1.17.0
+* jest: ^24.8.0
+* link: ^0.1.5
 * link-check: ^4.4.5
 * marked: ^0.6.2
-* node-bin: ^8.10.0
-* node-fetch: ^2.6.0
+* node-fetch: ^2.6.
 
 ## Autora ✒️
 * **Agatha Sáez**
