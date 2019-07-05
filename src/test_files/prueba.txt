@@ -1,0 +1,1 @@
+[lalala](https://stackoverflow.com/questions/15630770/node-js-check-if-path-is-file-or-directory#15630832)
