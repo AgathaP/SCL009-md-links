@@ -45,7 +45,7 @@ const searchingLinks = (path) => {
 };
 
 // Imprime en terminal links validos y erroneos
-const urlStats = (links) => {
+const validateOption = (links) => {
   return new Promise((resolve, reject) => {
     if(err){
       reject(err => {
@@ -76,9 +76,9 @@ const mdLinks = (path, option) => {
     }else if (option === '--validate' || option === '--v') {
       searchingLinks(path)
         .then(links => {
-          validateLinks(links)
-            .then(validateLinks => {
-              resolve(validateLinks)
+         validateOption(links)
+            .then(validateOption => {
+              resolve(validateOption)
             })
         })
     } else if(option === '') {
@@ -95,6 +95,6 @@ const mdLinks = (path, option) => {
 module.exports = {
   readPath,
   searchingLinks,
-  urlStats,
+  validateOption,
   mdLinks
 }
