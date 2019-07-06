@@ -33,3 +33,10 @@ if (fs.lstatSync(route).isFile() && extname === 'md') {
 } else {
   console.log('Este archivo no está en formato Markdown')
 }
+
+// intentando habilitar la opción --validate
+if(mdLinks.mdLinks(route, '--validate') || mdLinks.mdLinks(route, '--v')){
+  mdLinks.mdLinks(route, process.argv[3])
+  .then(res => {console.log(res)})
+  .catch(err => {console.log('ha habido un error')})
+}

@@ -70,7 +70,6 @@ const urlStats = (links) => {
 };
 
 const mdLinks = (path, option) => {
-  console.log('whatever')
   return new Promise((resolve, reject) => {
     if(err){
       reject(err)
@@ -84,8 +83,6 @@ const mdLinks = (path, option) => {
         })
     } else if(option === '') {
       readPath(path)
-// .then(searchingLinks(route)
-//    .then(console.log))
       .then(path => {
           searchingLinks(path)
             .then(searchingLinks => resolve(searchingLinks))
@@ -98,5 +95,6 @@ const mdLinks = (path, option) => {
 module.exports = {
   readPath,
   searchingLinks,
-  urlStats
+  urlStats,
+  mdLinks
 }
