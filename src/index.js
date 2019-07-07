@@ -5,6 +5,9 @@ const fs = require('fs');
 const marked = require('marked');
 const fetch = require('node-fetch');
 // const linkCheck = require('link-check');
+// variables globales
+let validate = false;
+let status = false;
 
 // Imprime en terminal los archivos que concuerden con la extención del formato markdown ".md".
 const readPath = (path) => {
@@ -19,7 +22,7 @@ const searchingLinks = (path) => {
   return new Promise((resolve, reject) => {
     fs.readFile(path, 'utf-8', (err, data) => {
       if (err) {
-        reject(err);
+        reject(err); 
       }
 
       let links = [];
@@ -45,21 +48,21 @@ const searchingLinks = (path) => {
 };
 
 // Imprime en terminal links validos y erroneos
-const validateOption = (links) => {
+const urlValidate = (links) => {
   return new Promise((resolve, reject) => {
-    if(err){
-      reject(err => {
-        console.log(err.message, err.code);
-      })
-    }
+    // if(err){
+    //   reject(err => {
+    //     console.log(err.message, err.code);
+    //   })
+    // }
     let arrayLinks = [];
     let linkObject = {};
-   links.forEach(el => {
+    links.forEach(el => {
       fetch(el.href)
         .then(res => {
-          linkObject.href = el.href;
-          linkObject.text = el.text;
-          linkObject.file = el.file;
+          // linkObject.href = el.href;
+          // linkObject.text = el.text;
+          // linkObject.file = el.file;
           linkObject.statusCode = res.status;
           linkObject.statusText = res.statusText;
           console.log("validate: ", arrayLinks);
@@ -69,24 +72,42 @@ const validateOption = (links) => {
   })
 };
 
-const mdLinks = (path, option) => {
-  return new Promise((resolve, reject) => {
+const counterLinks = (links) => {
+  return new Promise ((resolve, reject) => {
     if(err){
       reject(err)
-    }else if (option === '--validate' || option === '--v') {
+    }
+    let longitud = links.length;
+resolve(longitud)
+  })
+}
+
+const mdLinks = (path, option) => {
+  return new Promise((resolve, reject) => {
+    if (option === validate) {
       searchingLinks(path)
         .then(links => {
-         validateOption(links)
-            .then(validateOption => {
-              resolve(validateOption)
+          urlValidate(links)
+            .then(urlValidate => {
+              resolve(urlValidate)
             })
         })
-    } else if(option === '') {
-      readPath(path)
-      .then(path => {
-          searchingLinks(path)
-            .then(searchingLinks => resolve(searchingLinks))
+    } else if (option === status) {
+      searchingLinks(path)
+      .then(links => {
+        urlValidate(links)
+      .then(links => {
+        (counterLinks(links))
+        .then(counterLinks => {
+          resolve(counterLinks)
         })
+      })
+    })
+    } else {
+          searchingLinks(path)
+            .then(searchingLinks => {
+              resolve(searchingLinks)
+            })
     }
   })
 }
@@ -95,6 +116,7 @@ const mdLinks = (path, option) => {
 module.exports = {
   readPath,
   searchingLinks,
-  validateOption,
+  urlValidate,
+  counterLinks,
   mdLinks
 }
