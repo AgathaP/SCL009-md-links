@@ -1,122 +1,71 @@
-// Modulos importados para este proyecto
+const mdLinks = require('./md-links.js')
+// Modulos exportados en este proyecto
 const path = require('path');
-const fileHound = require('filehound');
 const fs = require('fs');
-const marked = require('marked');
-const fetch = require('node-fetch');
-// const linkCheck = require('link-check');
-// variables globales
+// Variable global
+let route = process.argv[2];
+let option1 = process.argv[3];
+let option2 = process.argv[4];
+
 let validate = false;
 let status = false;
 
-// Imprime en terminal los archivos que concuerden con la extención del formato markdown ".md".
-const readPath = (path) => {
-  return fileHound.create()
-    .paths(path)
-    .ext('.md')
-    .find();
-};
-
-// Lee los archivos y extrae links con su información adicional, texto que lo acompaña y hubicación.
-const searchingLinks = (path) => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf-8', (err, data) => {
-      if (err) {
-        reject(err); 
-      }
-
-      let links = [];
-
-      const renderer = new marked.Renderer();
-      renderer.link = function (href, title, text) {
-        links.push({
-          // Url encontrada.
-          href: href,
-          // Texto que aparecería dentro del link.
-          text: text,
-          // Ruta del archivo donde se encontró el link.
-          file: path
-        })
-      }
-
-      marked(data, {
-        renderer: renderer
-      })
-      resolve(links)
-    });
-  })
-};
-
-// Imprime en terminal links validos y erroneos
-const urlValidate = (links) => {
-  return new Promise((resolve, reject) => {
-    // if(err){
-    //   reject(err => {
-    //     console.log(err.message, err.code);
-    //   })
-    // }
-    let arrayLinks = [];
-    let linkObject = {};
-    links.forEach(el => {
-      fetch(el.href)
-        .then(res => {
-          // linkObject.href = el.href;
-          // linkObject.text = el.text;
-          // linkObject.file = el.file;
-          linkObject.statusCode = res.status;
-          linkObject.statusText = res.statusText;
-          console.log("validate: ", arrayLinks);
-        })
+// Si la ruta es relativa la normaliza y convierte en absoluta.
+if (!path.isAbsolute(route)) {
+  route = path.normalize(route)
+  route = path.resolve(route)
+}
+// Retorna una lista de archivos en caso de ser un directorio,
+// de lo contrario, retorna una lista con los links encontrados
+// dentro de un archivo.
+if (fs.lstatSync(route).isDirectory()) {
+  mdLinks.readPath(route)
+    .then(res => {
+      console.log(res)
     })
-    resolve(arrayLinks.push(linkObject))
-  })
-};
+  }
 
-const counterLinks = (links) => {
-  return new Promise ((resolve, reject) => {
-    if(err){
-      reject(err)
-    }
-    let longitud = links.length;
-resolve(longitud)
-  })
+// verifica que el archivo esté en formato Markdown
+if (fs.lstatSync(route).isFile()) { 
+  mdLinks.mdLinks(route)
+    .then(res => {
+      console.log(res); 
+    })
+} else {
+  console.log('Este archivo no está en formato Markdown')
 }
 
-const mdLinks = (path, option) => {
-  return new Promise((resolve, reject) => {
-    if (option === validate) {
-      searchingLinks(path)
-        .then(links => {
-          urlValidate(links)
-            .then(urlValidate => {
-              resolve(urlValidate)
-            })
-        })
-    } else if (option === status) {
-      searchingLinks(path)
-      .then(links => {
-        urlValidate(links)
-      .then(links => {
-        (counterLinks(links))
-        .then(counterLinks => {
-          resolve(counterLinks)
-        })
-      })
-    })
-    } else {
-          searchingLinks(path)
-            .then(searchingLinks => {
-              resolve(searchingLinks)
-            })
-    }
+// Acciones según opción del usuario
+if(option1 === '--validate' && option2 === '--status' || option1 === '--status' && option2 === 'validate'){
+  mdLinks.mdLinks(route, status, validate)
+  .catch(err => { console.log('ha habido un error')})
+  .then(status = true)
+  .then(res => {
+    console.log('Links totales: ', res)
   })
-}
-
-
-module.exports = {
-  readPath,
-  searchingLinks,
-  urlValidate,
-  counterLinks,
-  mdLinks
+  .then(validate = true)
+  .then(res => {
+    console.log('validate res: ',res)
+  })
+  .catch(err => {console.log('estamos trabajando para ud.', err)})
+}else if(option1 === '--validate' || option1 === '--v' || option2 === '--v' 
+|| option2 === '--validate'){
+  mdLinks.mdLinks(route, option1, option2)
+  .then(validate = true)
+  .then(res => {
+    console.log(res)
+  })
+  .catch(err => { console.log('ha habido un error')})
+} else if (option1 === '--status' || option1 === '--s' || option2 === '--status' 
+|| option2 === '--s'){
+  mdLinks.mdLinks(route, option1, option2)
+  .then(status = true)
+.then(res => {
+  console.log('links totales: ', res)
+})
+} else if (option1 === ''){
+  mdLinks.mdLinks(route)
+  .then(res => {
+    console.log(res)
+  })
 }

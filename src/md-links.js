@@ -1,55 +1,111 @@
-// Modulos exportados en este proyecto
-const mdLinks = require('./index.js')
-// Modulos exportados en este proyecto
+// Modulos importados para este proyecto
 const path = require('path');
+const fileHound = require('filehound');
 const fs = require('fs');
-// Variable global
-let route = process.argv[2];
+const marked = require('marked');
+const fetch = require('node-fetch');
 
-let pathExtname = route.split('.');
-let extname = pathExtname.pop();
 
-let validate = false;
-let status = false;
+// Imprime en terminal los archivos que concuerden con la extención del formato markdown ".md".
+const readPath = (path) => {
+  return fileHound.create()
+    .paths(path)
+    .ext('.md')
+    .find();
+};
 
-// Si la ruta es relativa la normaliza y convierte en absoluta.
-if (!path.isAbsolute(route)) {
-  route = path.normalize(route)
-  route = path.resolve(route)
-}
-// Retorna una lista de archivos en caso de ser un directorio,
-// de lo contrario, retorna una lista con los links encontrados
-// dentro de un archivo.
-if (fs.lstatSync(route).isDirectory()) {
-  mdLinks.readPath(route)
-    .then(res => {
-      console.log(res)
-    })
-  }
+// Lee los archivos y extrae links con su información adicional, texto que lo acompaña y hubicación.
+const searchingLinks = (path) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, 'utf-8', (err, data) => {
+      if (err) {
+        reject(err); 
+      }
 
-// verifica que el archivo esté en formato Markdown
-if (fs.lstatSync(route).isFile() && extname === 'md') { 
-  mdLinks.mdLinks(route)
-    .then(res => {
-      console.log(res); 
-    })
-} else {
-  console.log('Este archivo no está en formato Markdown')
-}
+      let links = [];
 
-// Imprime links, con o sin estado de esos links y con o sin un conteo de links unicos o repetidos,
-// todo esto según la opción que ingrese el usuario.
-if(process.argv[3] === '--validate' || process.argv[3] === '--v' || process.argv[4] === '--validate' || process.argv[4] === '--v'){
-  mdLinks.mdLinks(route, validate)
-  .then(validate = true)
-  .then(res => {
-    console.log(res)
+      const renderer = new marked.Renderer();
+      renderer.link = function (href, title, text) {
+        links.push({
+          // Url encontrada.
+          href: href,
+          // Texto que aparecería dentro del link.
+          text: text,
+          // Ruta del archivo donde se encontró el link.
+          file: path
+        })
+      }
+
+      marked(data, {
+        renderer: renderer
+      })
+      resolve(links)
+    });
   })
-  .catch(err => { console.log('ha habido un error')})
-} else if (process.argv[3] === 'status' || process.argv[3] === 's' || process.argv[4] === '--status' || process.argv[4] === '--s'){
-  mdLinks.mdLinks(route, validate)
-  .then(  status = true)
-.then(res => {
-  console.log('estamos trabajando para ud.', res)
-})
+};
+
+// Imprime en terminal links validos y erroneos
+const urlValidate = (links) => {
+  return new Promise((resolve, reject) => {
+
+    let arrayLinks = [];
+    let linkObject = {};
+    links.forEach(el => {
+      fetch(el.href)
+        .then(res => {
+          linkObject.href = el.href;
+          linkObject.text = el.text;
+          linkObject.file = el.file;
+          linkObject.statusCode = res.status;
+          linkObject.status = res.statusText;
+          console.log("validate: ", arrayLinks);
+        })
+    })
+    resolve(arrayLinks.push(linkObject))
+  })
+};
+
+// Función que entrega el total de links encontrados
+const counterLinks = (links) => {
+  return new Promise ((resolve, reject) => {
+    let longitud = links.length;
+resolve(longitud)
+  })
+}
+
+// Acción según opción del usuario, validate, status o nada.
+const mdLinks = (path, option) => {
+  return new Promise((resolve, reject) => {
+    if (option === '--status' || option === '--s') {
+      searchingLinks(path)
+      .then(links => {
+        counterLinks(links)
+        .then(counterLinks => {
+          resolve(counterLinks)
+        })
+    })
+    } else if (option === '--validate' || option === '--v') {
+      searchingLinks(path)
+        .then(links => {
+          urlValidate(links)
+            .then(urlValidate => {
+              resolve(urlValidate)
+            })
+        })
+    } else {
+          searchingLinks(path)
+            .then(searchingLinks => {
+              resolve(searchingLinks)
+            })
+    }
+  })
+}
+
+
+module.exports = {
+  readPath,
+  searchingLinks,
+  urlValidate,
+  counterLinks,
+  mdLinks
 }
