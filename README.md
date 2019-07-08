@@ -1,5 +1,5 @@
 # at-md-links 
-**version v0.1**
+**version 0.0.1**
 
 <br>
 Es un modulo de node, que te permite extraer links de archivos en formato markdown, además de comprobar el estado en el que se encuentran, (ok o break).
