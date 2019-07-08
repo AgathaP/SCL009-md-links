@@ -12,7 +12,7 @@ Es un modulo de node, que te permite extraer links de archivos en formato markdo
 Para instalar el modulo de md-link en tu proyecto, usa en tu terminal el siguiente comando.
 
 ```
-npm install AgathaP/md-links
+npm install at-md-links
 ```
 <br>
 Y exporta el modulo a tu proyecto de la siguiente manera:
