@@ -5,7 +5,7 @@
 Es un modulo de node, que te permite extraer links de archivos en formato markdown, además de comprobar el estado en el que se encuentran, (ok o break).
 
 ## Flujo
-![flujo](src\img\flujo.png)
+![flujo](\src\img\flujo.png)
 
 ## instalación  ⚙️🔧
 
@@ -35,10 +35,10 @@ _Donde "path" es la ruta donde se encuentra el archivo a analizar._
 Se imprimirá en la terminal, las carpetas encontradas en la ruta, los links contenidos dentro del o los archivos .md.
 <br>
 ### imprimiendo carpetas
-![imprimiendo-carpetas](src\img\imprimiendo-carpetas.png)
+![imprimiendo-carpetas](\src\img\imprimiendo-carpetas.png)
 <br>
 ### imprimiendo links contenidos en archivos
-![links-encontrados](src\img\links-encontrados.png)
+![links-encontrados](\src\img\links-encontrados.png)
 <br>
 
 Para saber el estado en que se encuentran las url.
@@ -47,7 +47,7 @@ md-links <path-to-file> --validate
 ```
 <br>
 
-![links-validados](src\img\links-validados.png)
+![links-validados](\src\img\links-validados.png)
 
 <br>
 Para saber la cantidad de links encotrados en el archivo
@@ -57,7 +57,7 @@ md-links <path-to-file> --status
 ```
 <br>
 
-![links totales](src\img\links-totales.png)
+![links totales](\src\img\links-totales.png)
 
 
 
@@ -72,3 +72,4 @@ md-links <path-to-file> --status
 
 ## Autora ✒️
 * **Agatha Sáez**
+
