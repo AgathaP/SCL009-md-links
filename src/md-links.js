@@ -19,7 +19,7 @@ const searchingLinks = (path) => {
   return new Promise((resolve, reject) => {
     fs.readFile(path, 'utf-8', (err, data) => {
       if (err) {
-        reject(err); 
+        reject(err);
       }
 
       let links = [];
@@ -67,9 +67,9 @@ const urlValidate = (links) => {
 
 // Función que entrega el total de links encontrados
 const counterLinks = (links) => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     let longitud = links.length;
-resolve(longitud)
+    resolve(longitud)
   })
 }
 
@@ -78,12 +78,12 @@ const mdLinks = (path, option) => {
   return new Promise((resolve, reject) => {
     if (option === '--status' || option === '--s') {
       searchingLinks(path)
-      .then(links => {
-        counterLinks(links)
-        .then(counterLinks => {
-          resolve(counterLinks)
+        .then(links => {
+          counterLinks(links)
+            .then(counterLinks => {
+              resolve(counterLinks)
+            })
         })
-    })
     } else if (option === '--validate' || option === '--v') {
       searchingLinks(path)
         .then(links => {
@@ -93,10 +93,10 @@ const mdLinks = (path, option) => {
             })
         })
     } else {
-          searchingLinks(path)
-            .then(searchingLinks => {
-              resolve(searchingLinks)
-            })
+      searchingLinks(path)
+        .then(searchingLinks => {
+          resolve(searchingLinks)
+        })
     }
   })
 }

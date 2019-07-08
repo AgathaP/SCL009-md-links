@@ -1,17 +1,26 @@
 {
   "name": "at-md-links",
   "version": "0.1.0",
+  "author": "Agatha Sáez",
+  "license": "ISC",
+  "repository": {
+
+  },
+  "bin": {
+    "md-links": "./md-links.js"
+  },
+  "keywords": [
+    "markdown",
+    "path",
+    "links"
+  ],
   "dependencies": {
     "deploy": "^1.0.3",
     "eslint": "^6.0.1",
     "filehound": "^1.17.0",
     "jest": "^24.8.0",
     "link": "^0.1.5",
-    "link-check": "^4.4.5",
     "marked": "^0.6.2",
     "node-fetch": "^2.6.0"
-  },
-  "bin": {
-    "md-links": "./md-links.js"
   }
 }
